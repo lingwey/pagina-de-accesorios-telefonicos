@@ -323,7 +323,7 @@ hr {
     font-size: 15px;
 }
 
-@media(max-width 991px){
+@media(max-width: 991px){
     .menu{
         padding: 20px;
     }
@@ -341,7 +341,7 @@ hr {
         display: none;
     }
 
-   /* .menu .navbar ul li {
+    .menu .navbar ul li {
         width: 100%;
     }
 
@@ -395,5 +395,5 @@ hr {
         flex-direction: column;
     }
 
-}*/
+}
 

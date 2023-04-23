@@ -21,7 +21,7 @@ body{
 .header{
     display: flex;
     align-items: center;
-    min-height: 70vh;
+    min-height: 80vh;
 }
 
 .swiper-slide{
@@ -345,7 +345,7 @@ hr {
         width: 100%;
     }
 
-    .menu:checked ~ .navbar{
+    #menu:checked ~ .navbar{
         display: initial;
     }
 
@@ -362,7 +362,7 @@ hr {
     }
 
     .swiper-slide {
-        padding: 0 30px 30px 0;
+        padding: 0 30px 50px 30px;
     }
 
     .header-content{
@@ -387,12 +387,68 @@ hr {
         width: 100%;
     }
 
-    .header-img{
+    .header-img img{
         width: 200px;
     }
 
     .precios{
         flex-direction: column;
+    }
+
+    .precios1{
+        margin: 0;
+    }
+
+    .btn-1 {
+        margin: 20px 0;
+    }
+
+    .promos{
+        padding: 30px;
+    }
+
+    .promos h2 {
+        font-size: 40px;
+        margin-bottom: 0;
+    }
+
+    .categorias{
+        grid-template-columns: repeat(1,1fr);
+    }
+
+    .categoria {
+        flex-direction: column;
+        text-align: center;
+        padding: 20px;
+    }
+
+    .categoria-1{
+        width: 100%;
+        margin-bottom:25px;
+        order: -1;
+    }
+
+    .categoria-img{
+        width: 100%;
+    }
+
+    .productos{
+        padding: 30px;
+    }
+
+    .productos h2{
+        font-size: 40px;
+        margin-bottom: 40px;
+    }
+
+    .footer{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .link{
+        width: 100%;
     }
 
 }

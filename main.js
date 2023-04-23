@@ -44,19 +44,21 @@ document.addEventListener("DOMContentLoaded", function (){
 // carrito
 
 const carrito = $("#carrito");
-const elemetos = $("#lista-1");
+const elementos = $("#lista-1");
 const elementos2 = $("#lista-2");
 const elementos3 = $("#lista-3");
 const lista = $("#lista-carrito tbody");
 const vaciarCarritoBtn = $("#vaciar-carrito");
+const carritoCostoTotal = $("total");
+carritoCostoTotal.text("$0.00");
 
 
 function cargarCarrito(){
-    elemetos.addEventListener("click", comprarElemento);
-    elemetos2.addEventListener("click", comprarElemento);
-    elemetos3.addEventListener("click", comprarElemento);
-    carrito.addEventListener("click", eliminarElemento);
-    vaciarCarritoBtn.addEventListener("click", vaciarCarrito);
+    elementos.click (comprarElemento);
+    elementos2.click(comprarElemento);
+    elementos3.click(comprarElemento);
+    carrito.click(eliminarElemento);
+    vaciarCarritoBtn.click(vaciarCarrito);
 }
 
 function comprarElemento(e){
@@ -69,7 +71,64 @@ function comprarElemento(e){
 
 function leerDatosElementos(elemento){
     const infoElemento = {
-        imagen : elemento.querySelector('img')
+        imagen : elemento.querySelector('img').src,
+        titulo: elemento.querySelector('h3').textContent,
+        precio: elemento.querySelector(".precio").textContent,
+        id: elemento.querySelector("a").getAttribute("data-id")
     }
+    subirCarrito(infoElemento);
+}
+
+function subirCarrito(elemento){
+    const filaCarrito = document.createElement("tr");
+    filaCarrito.innerHTML = `
+    <td>
+        <img src= "${elemento.imagen}" width = 100 />
+    </td>
+    <td>
+        ${elemento.titulo}
+    </td>
+    <td class= "precio">
+        ${elemento.precio}
+    </td>
+    <td>
+        <a herf = "#" class = "borrar" data-id = "${elemento.id}">
+            X
+        </a>
+    </td>
+    `
+    lista.appendChild(filaCarrito);
+    actualizarCostoTotal();
+}
+
+function actualizarCostoTotal (){
+    let costoTotalActual = 0;
+    const elementosCarrito = $("#lista-carrito tbody tr");
+    elementosCarrito.forEach(function(elementoCarrito) {
+        const precio = parseFloat(elementoCarrito.querySelector(".precio").textContent.replace("$",""));
+        costoTotalActual +=precio;
+    });
+    carritoCostoTotal.text("$" + costoTotalActual.toFixed(2))
+}
+
+function eliminarElemento (e){
+    e.preventDefault();
+    let elemento;
+    let elementoId;
+
+    if (e.target.classList.contains("borrar")){
+        e.target.parentElement.parentElement.remove();
+        elemento = e.target.parentElement.parentElement;
+        elementoId = elemento.querySelector("a").getAttribute("data-id")
+    }
+    actualizarCostoTotal()
+}
+
+function vaciarCarrito(){
+    while (lista.firstChild){
+        lista.removeChild(lista.firstChild);
+    }
+    carritoCostoTotal.text("$0.00");
+    return false
 }
 

@@ -38,13 +38,13 @@ document.addEventListener("DOMContentLoaded", function (){
         },
     });
 
-    cargarCarrito();
+    
 });
 
 // carrito
 
 const carrito = $("#carrito");
-const elementos = $("#lista-1");
+const elementos = $("#lista-1").on("click", comprarElemento);
 const elementos2 = $("#lista-2");
 const elementos3 = $("#lista-3");
 const lista = $("#lista-carrito tbody");
@@ -52,14 +52,16 @@ const vaciarCarritoBtn = $("#vaciar-carrito");
 const carritoCostoTotal = $("total");
 carritoCostoTotal.text("$0.00");
 
+//cargarCarrito();
 
-function cargarCarrito(){
-    elementos.click (comprarElemento);
+/*function cargarCarrito(){
+    elementos.on("click",comprarElemento);
     elementos2.click(comprarElemento);
     elementos3.click(comprarElemento);
     carrito.click(eliminarElemento);
     vaciarCarritoBtn.click(vaciarCarrito);
-}
+    console.log("cargar carrito")
+}*/
 
 function comprarElemento(e){
     e.preventDefault();
@@ -67,6 +69,7 @@ function comprarElemento(e){
         const elemento = e.target.parentElement.parentElement;
         leerDatosElementos(elemento);
     };
+    console.log("comprar elemento")
 }
 
 function leerDatosElementos(elemento){
@@ -76,6 +79,7 @@ function leerDatosElementos(elemento){
         precio: elemento.querySelector(".precio").textContent,
         id: elemento.querySelector("a").getAttribute("data-id")
     }
+    console.log("hola")
     subirCarrito(infoElemento);
 }
 
@@ -98,6 +102,7 @@ function subirCarrito(elemento){
     </td>
     `
     lista.appendChild(filaCarrito);
+    console.log(filaCarrito)
     actualizarCostoTotal();
 }
 

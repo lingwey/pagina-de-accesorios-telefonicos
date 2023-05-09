@@ -39,37 +39,38 @@ document.addEventListener("DOMContentLoaded", function (){
     });
 
     
+    
 });
 
 // carrito
 
-const carrito = $("#carrito");
-const elementos = $("#lista-1").on("click", comprarElemento);
-const elementos2 = $("#lista-2");
-const elementos3 = $("#lista-3");
-const lista = $("#lista-carrito tbody");
-const vaciarCarritoBtn = $("#vaciar-carrito");
-const carritoCostoTotal = $("total");
+const carrito = document.getElementById("carrito");
+const elementos = document.getElementById("lista-1");
+const elementos2 = document.getElementById("lista-2");
+const elementos3 = document.getElementById("lista-3");
+const lista = document.querySelector("#lista-carrito tbody");
+const limpiarCarrito = document.getElementById("vaciar-carrito");
+const carritoCostoTotal = $("#total");
 carritoCostoTotal.text("$0.00");
 
-//cargarCarrito();
+cargarCarrito();
 
-/*function cargarCarrito(){
-    elementos.on("click",comprarElemento);
-    elementos2.click(comprarElemento);
-    elementos3.click(comprarElemento);
-    carrito.click(eliminarElemento);
-    vaciarCarritoBtn.click(vaciarCarrito);
-    console.log("cargar carrito")
-}*/
+
+function cargarCarrito(){
+    elementos.addEventListener('click',comprarElemento);
+    elementos2.addEventListener('click',comprarElemento);
+    elementos3.addEventListener('click',comprarElemento);
+    limpiarCarrito.addEventListener('click', vaciarCarrito);
+    carrito.addEventListener('click', eliminarElemento)
+}
 
 function comprarElemento(e){
     e.preventDefault();
-    if(e.target.classList.contains("agregar-carrito")){
+
+    if (e.target.classList.contains('agregar-carrito')){
         const elemento = e.target.parentElement.parentElement;
         leerDatosElementos(elemento);
-    };
-    console.log("comprar elemento")
+    }
 }
 
 function leerDatosElementos(elemento){
@@ -79,7 +80,6 @@ function leerDatosElementos(elemento){
         precio: elemento.querySelector(".precio").textContent,
         id: elemento.querySelector("a").getAttribute("data-id")
     }
-    console.log("hola")
     subirCarrito(infoElemento);
 }
 
@@ -96,24 +96,24 @@ function subirCarrito(elemento){
         ${elemento.precio}
     </td>
     <td>
-        <a herf = "#" class = "borrar" data-id = "${elemento.id}">
-            X
-        </a>
+         <a herf = "#" class = "borrar" data-id ="${elemento.id}">
+             X
+         </a>
     </td>
     `
     lista.appendChild(filaCarrito);
-    console.log(filaCarrito)
     actualizarCostoTotal();
 }
 
 function actualizarCostoTotal (){
     let costoTotalActual = 0;
-    const elementosCarrito = $("#lista-carrito tbody tr");
+    const elementosCarrito = document.querySelectorAll("#lista-carrito tbody tr");
     elementosCarrito.forEach(function(elementoCarrito) {
         const precio = parseFloat(elementoCarrito.querySelector(".precio").textContent.replace("$",""));
-        costoTotalActual +=precio;
+        costoTotalActual += precio;
     });
     carritoCostoTotal.text("$" + costoTotalActual.toFixed(2))
+    console.log(costoTotalActual)
 }
 
 function eliminarElemento (e){
